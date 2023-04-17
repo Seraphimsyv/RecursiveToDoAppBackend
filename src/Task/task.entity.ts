@@ -14,9 +14,9 @@ export class Task {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   parentId?: number;
 
-  @Column()
+  @Column({ nullable: true })
   place: number;
 }

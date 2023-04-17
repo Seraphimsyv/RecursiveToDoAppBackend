@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
 import { Task } from './task.entity';
 import { TaskService } from './task.service';
+import { Moving } from 'src/types';
 
 @Controller("tasks")
 export class TaskController {
@@ -16,14 +17,14 @@ export class TaskController {
     return this.taskService.findChilds(id);
   }
 
-  @Post()
+  @Post('create')
   async create(@Body() task: Task) : Promise<Task> {
     return this.taskService.create(task);
   }
 
   @Post()
-  async swapp(@Body() id: number, moveTo: "up" | "down") : Promise<void> {
-    return this.taskService.swappingTask(id, moveTo);
+  async swapp(@Body() moving: Moving) : Promise<void> {
+    return this.taskService.swappingTask(moving);
   }
 
   @Delete(":id")
