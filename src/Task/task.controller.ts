@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
 import { Task } from './task.entity';
 import { TaskService } from './task.service';
-import { Moving } from 'src/types';
+import { updateTaskPlaceDto } from "./dto/updateTaskPlace.dto";
 
 @Controller("tasks")
 export class TaskController {
@@ -23,7 +23,7 @@ export class TaskController {
   }
 
   @Post()
-  async swapp(@Body() moving: Moving) : Promise<void> {
+  async swapp(@Body() moving: updateTaskPlaceDto) : Promise<void> {
     return this.taskService.swappingTask(moving);
   }
 

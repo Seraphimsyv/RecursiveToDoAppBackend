@@ -6,17 +6,7 @@ import { TaskController } from "./task.controller";
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'root',
-      database: 'postgres',
-      entities: [Task],
-      synchronize: true,
-    }),
-    TypeOrmModule.forFeature([Task]),
+    TypeOrmModule.forFeature([Task])
   ],
   controllers: [TaskController],
   providers: [TaskService]

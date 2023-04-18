@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from '@nestjs/typeorm';
-import { Task } from "./task.entity";
 import { Repository, LessThan, MoreThan, Not, IsNull } from 'typeorm';
-import { Moving } from "src/types";
+import { Task } from "./task.entity";
+import { updateTaskPlaceDto } from "./dto/updateTaskPlace.dto";
 
 @Injectable()
 export class TaskService {
@@ -63,7 +63,7 @@ export class TaskService {
    * Exchange of task places depending on the direction
    * @param {moving} : "up" | "down" - Exchange direction
    */
-  async swappingTask( moving : Moving ) : Promise<void> {
+  async swappingTask( moving : updateTaskPlaceDto ) : Promise<void> {
     const id = moving.id;
     const moveTo = moving.moveTo;
     const firstTask = await this.taskRepository.findOne({
