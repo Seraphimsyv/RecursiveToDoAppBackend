@@ -9,7 +9,7 @@ export class Task {
   title: string;
 
   @Column()
-  status: "toDo" | "inProgress" | "done";
+  status: 0 | 1 | 2;
 
   @Column()
   description: string;
