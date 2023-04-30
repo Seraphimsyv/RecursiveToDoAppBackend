@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Param, Body, UseFilters } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body, UseFilters, Logger } from '@nestjs/common';
 import { ApiParam, ApiResponse } from '@nestjs/swagger/dist';
 import { Task } from './task.entity';
 import { 
@@ -13,6 +13,8 @@ import { TaskCreateExceptionFilter } from './exception/taskCreateFailed.exceptio
 
 @Controller("tasks")
 export class TaskController {
+  private readonly logger = new Logger(TaskService.name)
+
   constructor(private taskService: TaskService) {}
   /**
    * Getting all tasks
@@ -29,6 +31,7 @@ export class TaskController {
   })
   @UseFilters(TasksExceptionFilter)
   findAll() : Promise<Task[]> {
+    this.logger.log('"GET" /tasks');
     return this.taskService.findAll();
   }
   /**
@@ -53,6 +56,7 @@ export class TaskController {
   })
   @UseFilters(TasksExceptionFilter)
   findChilds(@Param("id") id : number) : Promise<Task[]> {
+    this.logger.log(`"GET" /tasks/${id}`);
     return this.taskService.findChilds(id);
   }
   /**
@@ -76,6 +80,7 @@ export class TaskController {
   })
   @UseFilters(TaskCreateExceptionFilter)
   async create(@Body() task: Task) : Promise<void> {
+    this.logger.log('"POST" /tasks/create');
     return this.taskService.create(task);
   }
   /**
@@ -98,6 +103,7 @@ export class TaskController {
   })
   @UseFilters(TaskExceptionFilter)
   async swapp(@Body() moving: { id: number, moveTo: 0 | 1 } ) : Promise<void> {
+    this.logger.log('"POST" /tasks/swapp');
     return this.taskService.swappingTask(moving);
   }
   /**
@@ -121,6 +127,7 @@ export class TaskController {
   })
   @UseFilters(TaskExceptionFilter)
   async delete(@Param("id") id: number) : Promise<void> {
+    this.logger.log(`"DELETE" /tasks/${id}`);
     return this.taskService.remove(id);
   }
 }
